@@ -1,11 +1,18 @@
 ﻿using DevFreela.API.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DevFreela.API.Controllers
 {
     [Route("api/projects")]
     public class ProjectsController : ControllerBase
     {
+        private readonly OpeningTimeOption _option;
+        public ProjectsController(IOptions<OpeningTimeOption> option)
+        {
+            _option = option.Value;
+        }
         // api/projects?query=net core
         [HttpGet]
         public IActionResult Get(string query)
@@ -59,6 +66,29 @@ namespace DevFreela.API.Controllers
             //Buscar, se não existir, retorna NotFound
 
             //Remover
+            return NoContent();
+        }
+
+
+        //Cadastrar um comentário no projeto
+        [HttpPost("{id}/comments")]
+        public IActionResult PostComment(int id, [FromBody] CreateCommentModel createComment)
+        {
+            return NoContent();
+        }
+
+        //Inicializacao do projeto
+        [HttpPut("{id}/start")]
+        public IActionResult Start(int id)
+        {
+            return NoContent();
+        }
+
+
+        //api para finalizar projeto
+        [HttpPut("{id}/finish")]
+        public IActionResult Finish(int id)
+        {
             return NoContent();
         }
     }
